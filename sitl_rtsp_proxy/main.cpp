@@ -8,6 +8,11 @@ int main(int argc, char* argv[]) {
 
     GMainLoop* main_loop = g_main_loop_new(NULL, false);
 
+    if (!gst_debug_is_active()) {
+        gst_debug_set_active(TRUE);
+        gst_debug_set_default_threshold(GST_LEVEL_WARNING);
+    }
+
     GstRTSPServer* server = gst_rtsp_server_new();
     g_object_set(server, "service", "8554", NULL);
 
