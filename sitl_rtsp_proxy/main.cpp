@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     GstRTSPServer* server = gst_rtsp_server_new();
     g_object_set(server, "service", "8554", NULL);
 
-    std::string launch_string = "udpsrc port=5600 caps=application/x-rtp,encoding-name=(string)H264 ! rtph264depay ! rtph264pay name=pay0";
+    std::string launch_string = "v4l2src device=/dev/video2 ! queue ! video/x-h264,width=1920,height=1080,framerate=30/1 ! queue ! h264parse ! rtph264pay name=pay0";
     GstRTSPMediaFactory* factory = gst_rtsp_media_factory_new();
     gst_rtsp_media_factory_set_launch(factory, launch_string.c_str());
     gst_rtsp_media_factory_set_shared(factory, true);
